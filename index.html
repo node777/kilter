@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilter</title>
+    <style>
+        :root{
+            --color1:rgb(32 40 30);
+            --color2:rgb(221, 204, 179);
+            --color3:rgb(168, 190, 128);
+        }
+        body{
+            font-family: copperplate;
+            line-height: 2;
+            background-color: var(--color1);
+            color: var(--color2);
+        }
+        .br{
+            margin: 16 auto;
+            height: 1px;
+            background-color: var(--color2)
+        }
+        .button{
+            
+            background-color: var(--color2);
+            color: var(--color1);
+            margin: 2px;
+            font-weight: 800;
+        }
+        .button:hover{
+            cursor: pointer;
+            background-color: var(--color3);
+        }
+        .lit{
+            background-color: rgb(102, 151, 102);
+        }
+        .unlit{
+            background-color: rgb(107, 33, 4);
+        }
+        .center{
+            text-align: center;
+        }
+        .flex{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .flex>*{
+            flex: 1;
+        }
+        select{
+            width: 128px;
+            margin: 32px 5%;
+            font-family: copperplate, monospace;
+            font-size: 18px;
+            text-align: center;
+            background-color: var(--color2);
+            color: var(--color1);
+        }
+        .max{
+            width: max-content;
+            margin: auto;
+            min-width: 900px;
+        }
+        h1{
+            font-family: chev,copperplate,monospace;
+            text-align: center;
+            font-weight: 100;
+            font-size: 50px;
+            margin: 0;
+        }
+        h2,h3,h4,h5{
+            font-family: copperplate, monospace;
+            text-align: center;
+        }
+        @font-face {
+            font-family: copperplate;
+            src: url("./Copperplate\ Regular.ttf");
+        }
+        @font-face {
+            font-family: chev;
+            src: url("./Chevalier\ AT\ Regular.otf");
+        }
+    </style>
+</head>
+<body>
+    <h1>KILTER</h1>
+    <div class="br"></div>
+    <div class="max">
+        <div class="center">
+            Select Currency
+            <select id="currencySelect" onchange="assets.loadPrices()">
+            </select>
+        </div>
+
+        <div id="exchanges" class="box"></div>
+    </div>
+    <script>
+
+        let currencies= [
+            "btc",
+            "eth",
+            "xrp",
+            "ada",
+            "dot",
+            "near",
+            "link"
+        ]
+        let exchanges = [
+            {
+                name: "Binance"
+            },
+            {
+                name: "FTX"
+            },
+            {
+                name: "Coinbase"
+            },
+            {
+                name: "Kraken"
+            },
+            {
+                name: "KuCoin"
+            },
+            {
+                name: "Huobi Global"
+            },
+            {
+                name: "Gemini"
+            },
+            {
+                name: "Bitfinex"
+            },
+            {
+                name: "Binance.US"
+            },
+            {
+                name: "Gate.io"
+            },
+            {
+                name: "Coincheck"
+            },
+            {
+                name: "Bitstamp"
+            },
+            {
+                name: "FTX US"
+            },
+            {
+                name: "Bithumb"
+            },
+            {
+                name: "bitFlyer"
+            },
+            {
+                name: "OKX"
+            },
+            {
+                name: "Bybit"
+            },
+            {
+                name: "Crypto.com"
+            },
+            {
+                name: "MEXC"
+            },
+            {
+                name: "Liquid"
+            } 
+        ]
+        let assets={
+            selected:"btc",
+            loadPrices(){
+                let currency = document.getElementById("currencySelect").value;
+                alert(`Loading prices for ${currency}`)
+            }
+        }
+
+        for(currency in currencies){
+            document.getElementById("currencySelect").innerHTML+=`
+            <option>${currencies[currency].toUpperCase()}</option>
+            `
+        }
+
+        for(exchange in exchanges){
+            document.getElementById("exchanges").innerHTML+=`
+                <div>
+                    <h2>${exchanges[exchange].name}</h2>
+                    <div class="flex center ${exchanges[exchange].name=="KuCoin"?"lit":""}${exchanges[exchange].name=="bitFlyer"?"unlit":""}">
+                        <div id="${exchanges[exchange].name}Price">
+                            Price: $123 USD
+
+                        </div>
+                        <div>
+                            Volume: $1234 USD
+                        </div>
+                        <div>
+                            Highest Bid: $123<br />
+                            Lowest ask: $123
+                        </div>
+                        <div>
+                            <div class="button" onclick="window.location='https://${exchanges[exchange].name}.com'">Buy</div>
+                            <div class="button" onclick="window.location='https://${exchanges[exchange].name}.com'">Sell</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="br"></div>
+            `
+        }
+
+    </script>
+</body>
+</html>
